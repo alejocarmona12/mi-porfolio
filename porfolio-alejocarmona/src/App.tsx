@@ -70,7 +70,7 @@ const App: React.FC = () => {
             <div className="skill-item">⚛️ React</div>
             <div className="skill-item">💙 TypeScript</div>
             <div className="skill-item">🟨 JavaScript</div>
-            <div className="proyecosx">🌐 HTML & CSS</div>
+            <div className="skill-item">🌐 HTML & CSS</div>
             <div className="skill-item">🔥 Firebase</div>
             <div className="skill-item">🐙 Git & GitHub</div>
           </div>
