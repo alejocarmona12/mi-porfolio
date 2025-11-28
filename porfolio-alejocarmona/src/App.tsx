@@ -1,110 +1,189 @@
-import { useState, type FormEvent } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
+import foto from "./images/foto-alejocarmona.jpg";
+import imagen from "./images/logo de react.png";
+import logots from "./images/Typescript_logo_2020.svg.png";
+import logojs from "./images/JavaScript-logo.png";
+import logohtmlcss from "./images/logo-html-css.jpg";
+import logogithub from "./images/logo-git-github.png";
 
-// proyectos
-const sampleProjects = [
-  {
-    id: 1,
-    title: "Dashboard de Ventas",
-    description: "App de panel con gráficos en tiempo real y autenticación.",
-    demo: "#"
-  },
-  {
-    id: 2,
-    title: "Tienda Ecommerce",
-    description: "Tienda con carrito, filtros y pasarela de pago (simulada).",
-    demo: "#"
-  },
-  // extra test case / example
-  {
-    id: 3,
-    title: "Blog Personal",
-    description: "Plataforma de posts con editor en Markdown y paginación.",
-    demo: "#"
-  }
-];
-// formulario
+// Tipado del response de la API de GitHub
+interface GitHubRepo {
+  id: number;
+  name: string;
+  description: string | null;
+  html_url: string;
+}
+
 const App: React.FC = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const [repos, setRepos] = useState<GitHubRepo[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>("");
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    // For now we just log the values; in a real app we'd send to an API.
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    // build a simple object to inspect in console (keeps component self-contained)
-    const payload: Record<string, string> = {};
-    formData.forEach((value, key) => { payload[key] = String(value); });
-    // eslint-disable-next-line no-console
-    console.log("Contact form submit:", payload);
-    alert("Mensaje enviado (simulado). Revisa la consola para ver el payload.");
-    form.reset();
-  }
+  // Cargar repos automáticamente
+  const loadRepos = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        "https://api.github.com/users/alejocarmona12/repos"
+      );
+
+      if (!response.ok) throw new Error("Error al cargar repos de GitHub");
+
+      const data = await response.json();
+      setRepos(data);
+    } catch (err) {
+      setError("No se pudieron cargar los repositorios.");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadRepos();
+  }, []);
 
   return (
     <div className={darkMode ? "container dark" : "container"}>
-      {/* Inject CSS to avoid relying on external files */}
-       
-
+      
+      {/* HEADER */}
       <header>
         <nav>
           <h1>Mi Portfolio</h1>
-          <div>
-            <button onClick={() => setDarkMode((d) => !d)} aria-label="Alternar modo">
-              {darkMode ? "🌞" : "🌙"}
-            </button>
-          </div>
+          <button onClick={() => setDarkMode((d) => !d)}>
+            {darkMode ? "🌞" : "🌙"}
+          </button>
         </nav>
       </header>
 
+      {/* MAIN */}
       <main>
+
+        {/* HERO */}
         <section className="hero">
-          <h2>Hola, me llamo Alejo Carmona  Desarrollador Full Stack JR </h2>
-          <p>Construyo aplicaciones web  React y TypeScript</p>
-          <a href="/cv.pdf" download className="btn">Descargar CV </a>
+          <img
+            src={foto}
+            alt="Foto de Alejo Carmona"
+            height={50}
+            className="profile-photo"
+          />
+
+          <h2>Hola, soy Alejo Carmona — Full Stack JR</h2>
+          <p>Construyo aplicaciones con React + TypeScript</p>
+
+          <a
+            className="btn"
+            href="/cv-alejo.pdf"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Mi Curriculum Vitae
+          </a>
         </section>
+
+        {/* SKILLS */}
+        <div className="habilidades">
+          <h3>Habilidades</h3>
+        </div>
 
         <section className="skills">
-          <h3>Habilidades</h3>
-          <div className="skills-grid">
-            <div className="skill-item">⚛️ React</div>
-            <div className="skill-item">💙 TypeScript</div>
-            <div className="skill-item">🟨 JavaScript</div>
-            <div className="skill-item">🌐 HTML & CSS</div>
-            <div className="skill-item">🔥 Firebase</div>
-            <div className="skill-item">🐙 Git & GitHub</div>
+          <div className="react">
+            <img src={imagen} alt="logo de react" width={140} />
+            <p><b>React</b></p>
+          </div>
+
+          <div className="typeScrip">
+            <img src={logots} alt="logo de TS" width={100} />
+            <p><b>TypeScript</b></p>
+          </div>
+
+          <div className="javaScrip">
+            <img src={logojs} alt="logo de js" width={100} />
+            <p><b>JavaScript</b></p>
+          </div>
+
+          <div className="htmlcss">
+            <img src={logohtmlcss} alt="logo de html&css" width={150} />
+            <p><b>HTML & CSS</b></p>
+          </div>
+
+          <div className="gitgithub">
+            <img src={logogithub} alt="logo de git-github" width={200} />
+            <p><b>Git - GitHub</b></p>
           </div>
         </section>
 
-        <section className="projects">
+        {/* PROJECTS */}
+        <section className="projects" id="projects">
           <h3>Proyectos</h3>
+
+          {error && <p className="error">{error}</p>}
+
           <div className="projects-grid">
-            {sampleProjects.map((p) => (
-              <article key={p.id} className="project-card">
-                <h4>{p.title}</h4>
-                <p>{p.description}</p>
-                <p style={{ marginTop: 12 }}>
-                  <a href={p.demo} target="_blank" rel="noreferrer">Ver demo</a>
-                </p>
-              </article>
-            ))}
+            {loading ? (
+              <p className="loading">Cargando proyectos desde GitHub...</p>
+            ) : repos.length > 0 ? (
+              repos.slice(0, 6).map((repo) => (
+                <article key={repo.id} className="project-card">
+                  <h4>{repo.name}</h4>
+                  <p>{repo.description || " "}</p>
+                  <a
+                    href={repo.html_url}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Ver en GitHub →
+                  </a>
+                </article>
+              ))
+            ) : (
+              <p>No se encontraron proyectos.</p>
+            )}
           </div>
         </section>
 
+        {/* CONTACT */}
         <section className="contact">
           <h3>Contacto</h3>
-          <form onSubmit={handleSubmit}>
-            <input name="name" type="text" placeholder="Nombre" required />
-            <input name="email" type="email" placeholder="Correo" required />
-            <textarea name="message" placeholder="Tu mensaje" required rows={5}></textarea>
-            <button type="submit">Enviar</button>
-          </form>
+
+          <div className="gmail">
+            <p>
+              Gmail:{" "}
+              <a href="mailto:alejocarmona224@gmail.com">
+                alejocarmona224@gmail.com
+              </a>
+            </p>
+          </div>
+
+          <div className="telefono">
+            <p>
+              Tel: <a href="tel:3815298430">381-529-8430</a>
+            </p>
+          </div>
+
+          <div className="linkedin">
+            <p>
+              LinkedIn:{" "}
+              <a
+                href="https://www.linkedin.com/in/alejo-carmona-b66952228/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                alejocarmona
+              </a>
+            </p>
+          </div>
         </section>
+
       </main>
 
+      {/* FOOTER */}
       <footer>
-        <p>© alejocarmona-2025</p>
+        <p>© alejocarmona - 2025</p>
       </footer>
+
     </div>
   );
 };
