@@ -14,7 +14,6 @@ const projects = [
     ],
     tech: ["React", "TypeScript", "Recharts", "CSS"],
     demo: "https://alejo-financial-dashboard.netlify.app/",
-    // code: "https://github.com/tuusuario/tu-repo",
   },
   {
     title: "Ecommerce Brigadeiros",
@@ -28,7 +27,17 @@ const projects = [
     ],
     tech: ["React", "JavaScript", "Context API", "CSS"],
     demo: "https://unique-brigadeiros-57d756.netlify.app/",
-    // code: "https://github.com/tuusuario/tu-repo",
+  },
+  {
+    title: "Porta de Pelis",
+    description:
+      "Aplicación web para explorar y buscar películas consumiendo una API externa, con renderizado dinámico y manejo de estados.",
+    highlights: [
+      "Manejo de estados de carga y error",
+      "Interfaz responsive para mobile y desktop",
+    ],
+    tech: ["HTML", "JavaScript", "CSS"],
+    demo: "https://portadepelis.netlify.app/",
   },
 ];
 
@@ -89,17 +98,6 @@ export default function DeployNetlify() {
                 >
                   Ver demo →
                 </a>
-
-                {/* Si agregás repo, habilitá esto:
-                <a
-                  href={project.code}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex-1 border border-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 px-5 py-2 rounded-lg text-center font-semibold"
-                >
-                  Ver código
-                </a>
-                */}
               </div>
             </motion.article>
           ))}
