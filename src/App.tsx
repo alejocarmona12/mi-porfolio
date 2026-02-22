@@ -9,20 +9,35 @@ import Contact from "./components/contact";
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
-      {/* barra de navegacion */}
+    <div className="min-h-screen text-gray-900 dark:text-gray-100 bg-gradient-to-b from-white to-slate-50 dark:from-gray-950 dark:to-gray-900">
       <Navbar />
-      {/* contenido principal */}
-      <main className=" center-content">
+
+      <main>
+        {/* HERO */}
         <Hero />
-        <About />
-        <Stack />
-        <DeployNetlify />
-        <GithubSection />
-        <Contact />
+
+        {/* Secciones con “aire” startup */}
+        <div className="space-y-6 md:space-y-10">
+          <About />
+          <Stack />
+
+          {/* Separador sutil */}
+          <div className="mx-auto max-w-6xl px-4">
+            <div className="h-px bg-gray-200/70 dark:bg-gray-800/60" />
+          </div>
+
+          <DeployNetlify />
+          <GithubSection />
+
+          {/* Separador sutil */}
+          <div className="mx-auto max-w-6xl px-4">
+            <div className="h-px bg-gray-200/70 dark:bg-gray-800/60" />
+          </div>
+
+          <Contact />
+        </div>
       </main>
 
-      {/* pie de pagina  */}
       <Footer />
     </div>
   );
