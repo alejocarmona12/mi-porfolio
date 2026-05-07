@@ -10,21 +10,29 @@ export default function Footer() {
       whileInView={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="mt-20 border-t border-gray-200 dark:border-gray-700"
+      className="mt-24 border-t border-gray-200 dark:border-gray-800"
     >
       <Container>
-        <div className="py-10 text-center">
-          <p className="font-semibold text-gray-900 dark:text-white">
+        <div className="py-12 text-center space-y-4">
+          {/* Nombre */}
+          <p className="text-lg font-semibold text-gray-900 dark:text-white tracking-tight">
             Alejo Carmona
           </p>
 
-          <p className="mt-2 text-gray-500">
-            Frontend Developer en formación · React · TypeScript ·JavaScript En
-            crecimiento hacia Full Stack
+          {/* Descripción */}
+          <p className="text-sm md:text-base text-gray-500 leading-relaxed max-w-md mx-auto">
+            Frontend Developer en crecimiento, enfocado en construir interfaces
+            modernas y escalables. En camino a Full Stack.
           </p>
 
-          <div className="mt-6 text-xs text-gray-500">
-            © {year} Alejo Carmona · Creado con React y Tailwind CSS ·{" "}
+          {/* Tech line */}
+          <p className="text-xs text-gray-400">
+            React · TypeScript · JavaScript
+          </p>
+
+          {/* Copyright */}
+          <div className="pt-4 text-[11px] text-gray-400">
+            © {year} Alejo Carmona · React, typeScript & Tailwind CSS
           </div>
         </div>
       </Container>

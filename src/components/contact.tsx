@@ -1,5 +1,6 @@
 import { FaPhone, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { motion } from "framer-motion";
 import "./contact.css";
 import type { JSX } from "react";
 
@@ -7,86 +8,142 @@ type ContactItem = {
   icon: JSX.Element;
   label: string;
   value: string;
-  link: string;
+  href: string;
   external?: boolean;
-  isWhatsapp?: boolean;
-  ariaLabel?: string;
+  className?: string;
+  ariaLabel: string;
+};
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+const iconMotion = {
+  rest: {
+    rotate: 0,
+    scale: 1,
+    y: 0,
+  },
+  hover: {
+    rotate: 8,
+    scale: 1.2,
+    y: -2,
+    transition: {
+      type: "spring",
+      stiffness: 260,
+      damping: 12,
+    },
+  },
 };
 
 export default function ContactSection() {
   const contactos: ContactItem[] = [
     {
-      icon: <MdEmail />,
+      icon: <MdEmail color="#ff4d4d" />,
       label: "Email",
       value: "alejocarmona224@gmail.com",
-      link: "mailto:alejocarmona224@gmail.com",
+      href: "mailto:alejocarmona224@gmail.com",
       ariaLabel: "Enviar email a Alejo Carmona",
     },
     {
-      icon: <FaPhone />,
+      icon: <FaPhone color="#22c55e" />,
       label: "Teléfono",
       value: "381 529 8430",
-      link: "tel:+543815298430",
+      href: "tel:+543815298430",
       ariaLabel: "Llamar a Alejo Carmona",
     },
     {
-      icon: <FaLinkedin />,
+      icon: <FaLinkedin color="#0a66c2" />,
       label: "LinkedIn",
-      value: "LinkedIn Perfil",
-      link: "https://www.linkedin.com/in/alejo-carmona-b66952228/",
+      value: "Ver perfil",
+      href: "...",
       external: true,
       ariaLabel: "Abrir LinkedIn de Alejo Carmona",
     },
     {
-      icon: <FaWhatsapp />,
+      icon: <FaWhatsapp color="#25D366" />,
       label: "WhatsApp",
       value: "Mensaje directo",
-      isWhatsapp: true,
+      href: "...",
       external: true,
+      className: "whatsapp",
       ariaLabel: "Enviar WhatsApp a Alejo Carmona",
-      link:
-        "https://wa.me/543815298430?text=" +
-        encodeURIComponent(
-          "Hola Alejo, vi tu portfolio y me interesa hablar sobre oportunidades como Frontend Developer Jr.",
-        ),
     },
   ];
 
   return (
-    <section id="contacto" className="py-16 flex justify-center items-center">
-      <div className="contact-card">
+    <section id="contacto" className="py-20 flex justify-center items-center">
+      <motion.div
+        className="contact-card"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
         <h2>Contacto</h2>
 
         <p className="mt-2 text-center">
-          Estoy disponible para oportunidades como{" "}
-          <strong>Frontend Developer Jr / Trainee</strong>. Si te interesa mi
-          perfil, ¡coordinemos una charla!
+          Disponible para oportunidades como{" "}
+          <strong>Frontend Developer Jr / Trainee</strong>.
         </p>
 
-        <div className="contact-list mt-6">
-          {contactos.map((item) => {
-            const isExternal = item.external ?? item.isWhatsapp ?? false;
-
-            return (
-              <a
-                key={item.label}
-                href={item.link}
-                aria-label={item.ariaLabel}
-                target={isExternal ? "_blank" : undefined}
-                rel={isExternal ? "noopener noreferrer" : undefined}
-                className={`contact-item ${item.isWhatsapp ? "whatsapp" : ""}`}
+        <motion.div
+          className="contact-list mt-8"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
+          {contactos.map(
+            ({ icon, label, value, href, external, className, ariaLabel }) => (
+              <motion.a
+                key={label}
+                href={href}
+                aria-label={ariaLabel}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                className={`contact-item ${className ?? ""}`}
+                variants={item}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
               >
-                <div className="icon">{item.icon}</div>
+                {/* ICONO PREMIUM */}
+                <motion.div
+                  className="icon"
+                  variants={iconMotion}
+                  initial="rest"
+                  whileHover="hover"
+                >
+                  {icon}
+                </motion.div>
 
                 <div className="info">
-                  <span className="label">{item.label}</span>
-                  <span className="value">{item.value}</span>
+                  <span className="label">{label}</span>
+                  <span className="value">{value}</span>
                 </div>
-              </a>
-            );
-          })}
-        </div>
-      </div>
+              </motion.a>
+            ),
+          )}
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

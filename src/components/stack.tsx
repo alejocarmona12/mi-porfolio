@@ -1,66 +1,192 @@
+import { motion } from "framer-motion";
 import Container from "../layout/container";
-import { FaReact, FaHtml5, FaCss3Alt, FaGithub, FaJs } from "react-icons/fa";
-import { SiTypescript } from "react-icons/si";
+import { MonitorSmartphone } from "lucide-react";
 
 const stack = [
   {
     name: "React",
-    icon: <FaReact />,
-    color: "text-cyan-400",
+    icon: "devicon-react-original colored",
   },
   {
     name: "TypeScript",
-    icon: <SiTypescript />,
-    color: "text-blue-600",
+    icon: "devicon-typescript-plain colored",
   },
   {
     name: "JavaScript",
-    icon: <FaJs />,
-    color: "text-yellow-400",
+    icon: "devicon-javascript-plain colored",
   },
   {
     name: "HTML",
-    icon: <FaHtml5 />,
-    color: "text-orange-600",
+    icon: "devicon-html5-plain colored",
   },
   {
     name: "CSS",
-    icon: <FaCss3Alt />,
-    color: "text-blue-500",
+    icon: "devicon-css3-plain colored",
   },
   {
     name: "GitHub",
-    icon: <FaGithub />,
-    color: "text-gray-800 dark:text-white",
+    icon: "devicon-github-original",
+  },
+  {
+    name: "Node.js",
+    icon: "devicon-nodejs-plain colored",
+  },
+  {
+    name: "MongoDB",
+    icon: "devicon-mongodb-plain colored",
   },
 ];
 
 export default function Stack() {
   return (
-    <section className="py-16">
+    <section className="relative py-32 overflow-hidden">
       <Container>
-        <h3 className="text-2xl font-semibold text-center mb-10">
-          Stack Tecnológico
-        </h3>
+        {/* Title */}
+        <div className="text-center mb-24">
+          <h2
+            className="
+              text-4xl
+              md:text-5xl
+              font-bold
+              text-white
+            "
+          >
+            Stack Tecnológico
+          </h2>
 
-        <div className="flex flex-wrap justify-center gap-12">
-          {stack.map((tech) => (
-            <div
-              key={tech.name}
-              className="flex flex-col items-center group transition"
-            >
-              {/* {/color propio /}  */}
-              <div
-                className={`text-5xl ${tech.color} transition duration-300 group-hover:scale-110`}
+          <p className="mt-4 text-gray-400">
+            Tecnologías que utilizo para construir experiencias modernas.
+          </p>
+        </div>
+
+        {/* Orbit Container */}
+        <div className="relative flex items-center justify-center h-[650px]">
+          {/* Glow */}
+          <div
+            className="
+              absolute
+              w-[420px]
+              h-[420px]
+              rounded-full
+              bg-blue-500/10
+              blur-3xl
+            "
+          />
+
+          {/* Center Circle */}
+          <div
+            className="
+              absolute
+              z-20
+              w-40
+              h-40
+              rounded-full
+              border
+              border-white/10
+              bg-white/5
+              backdrop-blur-xl
+              flex
+              items-center
+              justify-center
+              shadow-[0_0_60px_rgba(59,130,246,0.15)]
+            "
+          >
+            <div className="text-center">
+              <MonitorSmartphone
+                size={58}
+                className="
+                  text-blue-400
+                  drop-shadow-[0_0_20px_rgba(59,130,246,0.8)]
+                   "
+              />
+
+              <p
+                className="
+                  mt-3
+                  text-white
+                  font-semibold
+                  tracking-wide
+                "
               >
-                {tech.icon}
-              </div>
-
-              <span className="text-sm mt-3 text-gray-600 dark:text-gray-300">
-                {tech.name}
-              </span>
+                Full Stack
+              </p>
             </div>
-          ))}
+          </div>
+
+          {/* Orbit Ring */}
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{
+              duration: 28,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="
+              relative
+              w-[520px]
+              h-[520px]
+              rounded-full
+              border
+              border-white/5
+            "
+          >
+            {stack.map((tech, index) => {
+              const angle = (360 / stack.length) * index;
+
+              return (
+                <div
+                  key={tech.name}
+                  className="absolute left-1/2 top-1/2"
+                  style={{
+                    transform: `
+                      rotate(${angle}deg)
+                      translateY(-260px)
+                      rotate(-${angle}deg)
+                    `,
+                  }}
+                >
+                  <div
+                    className="
+                      flex
+                      flex-col
+                      items-center
+                      justify-center
+                      w-24
+                      h-24
+                      rounded-2xl
+                      border
+                      border-white/10
+                      bg-white/5
+                      backdrop-blur-xl
+                      shadow-lg
+                      hover:scale-110
+                      hover:bg-white/10
+                      transition-all
+                      duration-300
+                    "
+                  >
+                    <i
+                      className={`
+                        ${tech.icon}
+                        text-4xl
+                      `}
+                    ></i>
+
+                    <span
+                      className="
+                        mt-2
+                        text-xs
+                        text-gray-300
+                        font-medium
+                      "
+                    >
+                      {tech.name}
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
+          </motion.div>
         </div>
       </Container>
     </section>

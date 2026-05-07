@@ -4,7 +4,6 @@ import About from "./components/about";
 import Stack from "./components/stack";
 import Footer from "./components/footer";
 import DeployNetlify from "./components/deployNetlify";
-import GithubSection from "./components/githubsection";
 import Contact from "./components/contact";
 
 export default function App() {
@@ -27,7 +26,6 @@ export default function App() {
           </div>
 
           <DeployNetlify />
-          <GithubSection />
 
           {/* Separador sutil */}
           <div className="mx-auto max-w-6xl px-4">

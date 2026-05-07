@@ -9,8 +9,7 @@ export default function About() {
 
           <p className="max-w-2xl mx-auto leading-relaxed text-gray-600 dark:text-gray-300">
             Soy <strong>desarrollador Frontend</strong> en formación, con
-            experiencia práctica construyendo aplicaciones web con{" "}
-            <strong>React</strong> y <strong>TypeScript</strong>. Me enfoco en
+            experiencia práctica construyendo aplicaciones web. Me enfoco en
             crear interfaces modernas, responsivas y mantenibles, priorizando la
             experiencia del usuario y las buenas prácticas.
           </p>
