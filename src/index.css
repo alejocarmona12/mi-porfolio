@@ -1,18 +1,45 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* 🌟 OPTIMIZACIONES GLOBALES PARA EL ENTORNO 3D */
+html {
+  scroll-behavior: smooth;
+  background-color: #000000;
+}
+
+/* Barra de desplazamiento premium que se funde con el fondo negro */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1c1c1e;
+  border-radius: 99px;
+  border: 2px solid #000000;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2c2c2e;
+}
+
+/* 🚀 MARQUEE OPTIMIZADO POR HARDWARE */
 @keyframes marquee {
   0% {
     transform: translateX(0);
   }
-
   100% {
     transform: translateX(-50%);
   }
 }
 
 .animate-marquee {
-  animation: marquee 22s linear infinite;
+  will-change: transform; /* Fuerza el renderizado por GPU para máxima fluidez */
+  animation: marquee 25s linear infinite;
 }
 
 .animate-marquee:hover {

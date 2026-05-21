@@ -1,292 +1,201 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import Container from "../layout/container";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
 
 const projects = [
   {
     title: "Financial Dashboard",
     description:
       "Dashboard financiero para registrar ingresos y gastos con métricas y gráficos dinámicos en tiempo real.",
-
     highlights: [
       "Filtros por tipo y período",
       "Gráficos dinámicos con Recharts",
       "Persistencia de datos",
       "Diseño responsive",
     ],
-
     tech: ["React", "TypeScript", "Recharts", "CSS"],
-
-    demo: "https://alejo-financial-dashboard.netlify.app/",
+    demo: "https://netlify.app",
   },
-
   {
     title: "Ecommerce Brigadeiros",
     description:
       "E-commerce moderno con carrito de compras y arquitectura escalable lista para backend.",
-
     highlights: [
       "Context API",
       "Gestión de carrito",
       "Componentes reutilizables",
       "Mobile First",
     ],
-
     tech: ["React", "JavaScript", "Context API", "CSS"],
-
-    demo: "https://unique-brigadeiros-57d756.netlify.app/",
+    demo: "https://netlify.app",
   },
-
   {
     title: "Porta de Pelis",
     description:
       "Aplicación para explorar películas consumiendo APIs externas con renderizado dinámico.",
-
     highlights: ["Consumo de API", "Estados de carga", "Responsive UI"],
-
     tech: ["HTML", "JavaScript", "CSS"],
-
-    demo: "https://portadepelis.netlify.app/",
+    demo: "https://netlify.app",
   },
 ];
 
 export default function Projects() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Captura la posición de arrastre
+  const dragX = useMotionValue(0);
+
+  const totalItems = projects.length;
+  const angleUnit = 360 / totalItems;
+  const radius = 300;
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % totalItems);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + totalItems) % totalItems);
+  };
+
+  // Controla el final del arrastre para decidir si cambia de tarjeta
+  const handleDragEnd = () => {
+    const distanceMoved = dragX.get();
+    const swipeThreshold = 50; // Píxeles mínimos para activar el cambio
+
+    if (distanceMoved < -swipeThreshold) {
+      handleNext();
+    } else if (distanceMoved > swipeThreshold) {
+      handlePrev();
+    }
+
+    // Resetea el valor de control de arrastre
+    dragX.set(0);
+  };
+
   return (
     <section
       id="proyectos"
-      className="
-        relative
-        py-32
-        overflow-hidden
-      "
+      className="relative py-32 overflow-hidden bg-black select-none"
     >
       {/* Background Glow */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div
-          className="
-            absolute
-            top-0
-            left-1/2
-            -translate-x-1/2
-            w-[700px]
-            h-[700px]
-            bg-blue-500/10
-            blur-3xl
-            rounded-full
-          "
-        />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/10 blur-3xl rounded-full pointer-events-none" />
       </div>
 
       <Container>
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto">
-          <h2
-            className="
-              text-4xl
-              md:text-5xl
-              font-bold
-              text-white
-            "
-          >
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-white">
             Proyectos Destacados
           </h2>
-
-          <p
-            className="
-              mt-5
-              text-lg
-              text-gray-400
-              leading-relaxed
-            "
-          >
-            Aplicaciones modernas desarrolladas con foco en rendimiento,
-            experiencia de usuario y arquitectura escalable.
+          <p className="mt-5 text-lg text-gray-400 leading-relaxed">
+            Explorá mis aplicaciones arrastrando el carrusel o usando las
+            flechas de navegación.
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="mt-20 grid lg:grid-cols-2 gap-8">
-          {projects.map((project, index) => (
-            <motion.article
-              key={project.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{
-                duration: 0.5,
-                delay: index * 0.1,
-              }}
-              whileHover={{
-                y: -6,
-              }}
-              className="
-                group
-                relative
-                overflow-hidden
-                rounded-3xl
-                border
-                border-white/10
-                bg-white/5
-                backdrop-blur-2xl
-                p-7
-                transition-all
-                duration-500
-                hover:border-blue-500/30
-                hover:bg-white/[0.07]
-              "
+        {/* 3D CAROUSEL ZONE */}
+        <div className="relative flex flex-col items-center justify-center h-[550px] w-full">
+          {/* Contenedor de Perspectiva */}
+          <div
+            className="relative w-[320px] h-[420px] cursor-grab active:cursor-grabbing"
+            style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
+          >
+            {/* Cilindro interactivo con funcionalidad de arrastre (Drag) */}
+            <motion.div
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              style={{ transformStyle: "preserve-3d", x: dragX }}
+              onDragEnd={handleDragEnd}
+              animate={{ rotateY: -currentIndex * angleUnit }}
+              transition={{ type: "spring", stiffness: 45, damping: 15 }}
+              className="w-full h-full relative"
             >
-              {/* Glow Hover */}
-              <div
-                className="
-                  absolute
-                  inset-0
-                  opacity-0
-                  group-hover:opacity-100
-                  transition-opacity
-                  duration-500
-                  bg-gradient-to-br
-                  from-blue-500/10
-                  to-cyan-400/5
-                "
-              />
+              {projects.map((project, index) => {
+                const itemRotationY = index * angleUnit;
 
-              {/* Fake Preview */}
-              <div
-                className="
-                  relative
-                  h-52
-                  rounded-2xl
-                  border
-                  border-white/10
-                  bg-gradient-to-br
-                  from-[#111827]
-                  to-[#1e293b]
-                  overflow-hidden
-                  flex
-                  items-center
-                  justify-center
-                "
-              >
-                <div
-                  className="
-                    absolute
-                    inset-0
-                    bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)]
-                    bg-[size:30px_30px]
-                  "
-                />
-
-                <span
-                  className="
-                    text-white/80
-                    text-lg
-                    font-medium
-                    z-10
-                  "
-                >
-                  {project.title}
-                </span>
-              </div>
-
-              {/* Content */}
-              <div className="relative mt-7">
-                <h3
-                  className="
-                    text-2xl
-                    font-semibold
-                    text-white
-                  "
-                >
-                  {project.title}
-                </h3>
-
-                <p
-                  className="
-                    mt-4
-                    text-gray-400
-                    leading-relaxed
-                  "
-                >
-                  {project.description}
-                </p>
-
-                {/* Highlights */}
-                <ul className="mt-6 space-y-3">
-                  {project.highlights.map((h) => (
-                    <li
-                      key={h}
-                      className="
-                        flex
-                        items-start
-                        gap-3
-                        text-sm
-                        text-gray-300
-                      "
-                    >
-                      <span
-                        className="
-                          mt-1
-                          w-2
-                          h-2
-                          rounded-full
-                          bg-blue-500
-                        "
-                      />
-
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Tech */}
-                <div className="mt-7 flex flex-wrap gap-2">
-                  {project.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="
-                        px-3
-                        py-1.5
-                        rounded-xl
-                        border
-                        border-white/10
-                        bg-white/5
-                        text-xs
-                        text-gray-300
-                      "
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Buttons */}
-                <div className="mt-8 flex gap-4">
-                  <a
-                    href={project.demo}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="
-                      inline-flex
-                      items-center
-                      gap-2
-                      px-5
-                      py-3
-                      rounded-2xl
-                      bg-blue-600
-                      text-white
-                      font-semibold
-                      hover:bg-blue-700
-                      transition-all
-                      duration-300
-                    "
+                return (
+                  <motion.article
+                    key={project.title}
+                    style={{
+                      transformStyle: "preserve-3d",
+                      transform: `rotateY(${itemRotationY}deg) translateZ(${radius}px)`,
+                    }}
+                    className={`absolute inset-0 rounded-3xl border border-white/10 bg-zinc-950/80 backdrop-blur-2xl p-6 transition-opacity duration-500 flex flex-col justify-between shadow-[0_0_50px_rgba(0,0,0,0.5)] ${
+                      currentIndex === index
+                        ? "opacity-100 border-blue-500/30 shadow-[0_0_40px_rgba(59,130,246,0.15)]"
+                        : "opacity-30 pointer-events-none" // Desactiva clicks en las tarjetas de fondo
+                    }`}
                   >
-                    Ver Proyecto
-                    <ArrowUpRight size={18} />
-                  </a>
-                </div>
-              </div>
-            </motion.article>
-          ))}
+                    {/* Fake Preview Grid */}
+                    <div className="relative h-32 rounded-2xl border border-white/10 bg-gradient-to-br from-[#111827] to-[#1e293b] overflow-hidden flex items-center justify-center">
+                      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:20px_20px]" />
+                      <span className="text-white/40 text-sm font-medium tracking-wider uppercase z-10">
+                        {project.tech[0]}{" "}
+                        {project.tech[1] ? `+ ${project.tech[1]}` : ""}
+                      </span>
+                    </div>
+
+                    {/* Content */}
+                    <div className="mt-4 flex-1 flex flex-col justify-between">
+                      <div>
+                        <h3 className="text-xl font-bold text-white tracking-tight">
+                          {project.title}
+                        </h3>
+                        <p className="mt-2 text-xs text-gray-400 line-clamp-3 leading-relaxed">
+                          {project.description}
+                        </p>
+
+                        {/* Tech Tags */}
+                        <div className="mt-4 flex flex-wrap gap-1.5">
+                          {project.tech.map((t) => (
+                            <span
+                              key={t}
+                              className="px-2 py-0.5 rounded-lg border border-white/5 bg-white/5 text-[10px] text-gray-400 font-medium"
+                            >
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Button */}
+                      <div className="mt-5">
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center justify-center gap-2 w-full px-4 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 transition-all duration-300 shadow-md shadow-blue-600/10"
+                        >
+                          Ver Proyecto
+                          <ArrowUpRight size={14} />
+                        </a>
+                      </div>
+                    </div>
+                  </motion.article>
+                );
+              })}
+            </motion.div>
+          </div>
+
+          {/* Controles de Navegación */}
+          <div className="flex gap-4 mt-12 z-30">
+            <button
+              onClick={handlePrev}
+              className="p-3 rounded-full border border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-blue-500/40 transition-all active:scale-95"
+              aria-label="Proyecto anterior"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button
+              onClick={handleNext}
+              className="p-3 rounded-full border border-white/10 bg-white/5 text-white hover:bg-white/10 hover:border-blue-500/40 transition-all active:scale-95"
+              aria-label="Siguiente proyecto"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
         </div>
       </Container>
     </section>

@@ -5,32 +5,24 @@ import Stack from "./components/stack";
 import Footer from "./components/footer";
 import DeployNetlify from "./components/deployNetlify";
 import Contact from "./components/contact";
+import Timeline from "./components/timeline";
 
 export default function App() {
   return (
-    <div className="min-h-screen text-gray-900 dark:text-gray-100 bg-gradient-to-b from-white to-slate-50 dark:from-gray-950 dark:to-gray-900">
+    // 🛠️ CORREGIDO: Fondo negro puro global y remoción de gradientes antiguos para evitar cortes
+    <div className="min-h-screen text-white bg-black antialiased">
       <Navbar />
 
       <main>
         {/* HERO */}
         <Hero />
 
-        {/* Secciones con “aire” startup */}
-        <div className="space-y-6 md:space-y-10">
+        {/* Contenedor fluido sin líneas grises artificiales */}
+        <div className="space-y-12 md:space-y-20">
           <About />
           <Stack />
-
-          {/* Separador sutil */}
-          <div className="mx-auto max-w-6xl px-4">
-            <div className="h-px bg-gray-200/70 dark:bg-gray-800/60" />
-          </div>
-
+          <Timeline />
           <DeployNetlify />
-
-          {/* Separador sutil */}
-          <div className="mx-auto max-w-6xl px-4">
-            <div className="h-px bg-gray-200/70 dark:bg-gray-800/60" />
-          </div>
 
           <Contact />
         </div>
