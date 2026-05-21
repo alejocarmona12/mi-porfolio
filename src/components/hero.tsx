@@ -1,16 +1,23 @@
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import foto from "../images/foto-alejocarmona.jpg";
 import Container from "../layout/container";
 
 export default function Hero() {
-  // Valores para el efecto de inclinación (Tilt) 3D en la foto
+  // Valores base para el efecto de inclinación 3D
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  // Mapeamos el movimiento a rotación física leve
-  const rotateX = useTransform(y, [-300, 300], [15, -15]);
-  const rotateY = useTransform(x, [-300, 300], [-15, 15]);
+  // Configuramos un efecto "spring" físico para suavizar el movimiento de la foto
+  const springConfig = { damping: 25, stiffness: 150 };
+  const rotateX = useSpring(
+    useTransform(y, [-300, 300], [15, -15]),
+    springConfig,
+  );
+  const rotateY = useSpring(
+    useTransform(x, [-300, 300], [-15, 15]),
+    springConfig,
+  );
 
   function handleMouseMove(
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
@@ -32,45 +39,50 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative min-h-screen flex items-center bg-black select-none"
-      // 🛠️ SE ELIMINÓ 'overflow-hidden' PARA EVITAR QUE SE CORTEN LOS COMPONENTES ORBITALES INFERIORES
+      className="relative min-h-screen flex items-center bg-[#030303] select-none text-white overflow-x-hidden"
     >
       {/* Background Effects */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        {/* Main Glow */}
-        <motion.div
-          animate={{ scale: [1, 1.05, 1], opacity: [0.4, 0.6, 0.4] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-blue-500/10 blur-3xl rounded-full"
-        />
-
-        {/* Secondary Glow */}
+      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+        {/* Main Glow Aurora */}
         <motion.div
           animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-40 right-20 w-[350px] h-[350px] bg-cyan-400/10 blur-3xl rounded-full"
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gradient-to-b from-blue-600/20 to-cyan-500/0 blur-[140px] rounded-full"
         />
 
-        {/* Grid Espacial */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:30px_30px]" />
+        {/* Secondary Ambient Light */}
+        <motion.div
+          animate={{ scale: [1, 1.15, 1], opacity: [0.2, 0.4, 0.2] }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 2,
+          }}
+          className="absolute bottom-10 right-[-5%] w-[500px] h-[500px] bg-blue-500/10 blur-[120px] rounded-full"
+        />
+
+        {/* Grid Espacial Minimalista */}
+        <div className="absolute inset-0 bg-[radial-gradient(#ffffff05_1px,transparent_1px)] [background-size:24px_24px]" />
       </div>
 
       <Container>
-        <div className="grid lg:grid-cols-[1.1fr_.9fr] gap-12 lg:gap-20 items-center pt-32 pb-20">
+        <div className="grid lg:grid-cols-[1.15fr_.85fr] gap-12 lg:gap-16 items-center pt-32 pb-20">
           {/* LEFT SIDE: Texts & Actions */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="z-10"
           >
             {/* Badge Animado */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-xl text-blue-400 text-xs font-mono font-medium shadow-[0_0_20px_rgba(59,130,246,0.05)]">
-              <span className="w-2 h-2 rounded-full bg-blue-500 shadow-[0_0_10px_rgba(59,130,246,1)] animate-pulse" />
+            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-white/5 bg-white/[0.03] backdrop-blur-xl text-blue-400 text-xs font-mono font-medium shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_12px_rgba(34,211,238,1)] animate-pulse" />
               <TypeAnimation
                 sequence={[
                   "Full Stack Developer",
                   2000,
-                  "React & JavaScript Typescript Developer",
+                  "React & TypeScript Developer",
                   2000,
                   "Disponible para proyectos",
                   2000,
@@ -83,82 +95,110 @@ export default function Hero() {
             </div>
 
             {/* TITLE */}
-            <h1 className="mt-8 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.15] text-white">
-              Creo experiencias web modernas, enfocadas en rendimiento y{" "}
-              <span className="bg-gradient-to-r from-blue-500 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+            <h1 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white">
+              Creo experiencias web, enfocadas en rendimiento y{" "}
+              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">
                 escalabilidad.
               </span>
             </h1>
 
             {/* DESCRIPTION */}
-            <p className="mt-6 max-w-lg text-base md:text-lg leading-relaxed text-gray-400">
+            <p className="mt-6 max-w-xl text-base md:text-lg leading-relaxed text-zinc-400 font-normal">
               Soy{" "}
-              <strong className="text-white font-semibold">
+              <strong className="text-zinc-100 font-semibold bg-white/5 px-1.5 py-0.5 rounded border border-white/5">
                 Alejo Carmona
               </strong>
               , Full Stack Developer enfocado en crear soluciones digitales
-              completas, escalables y centradas en el usuario, con visión de
-              producto.
+              completas, robustas y centradas en la experiencia de usuario.
             </p>
 
             {/* BUTTONS */}
-            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+            <div className="mt-10 flex flex-wrap gap-4 items-center">
               <a
                 href="#proyectos"
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-2xl bg-blue-600 text-white font-semibold shadow-lg shadow-blue-600/20 hover:bg-blue-700 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300"
+                className="group relative inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-white text-black font-semibold tracking-wide overflow-hidden shadow-lg hover:shadow-blue-500/10 transition-all duration-300 active:scale-95"
               >
-                Ver proyectos →
+                <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-blue-500 to-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+                <span className="group-hover:text-white transition-colors duration-300">
+                  Ver proyectos
+                </span>
+                <span className="ml-1.5 transform group-hover:translate-x-1 transition-transform duration-300 group-hover:text-white">
+                  →
+                </span>
               </a>
 
               <a
                 href="#contacto"
-                className="inline-flex items-center justify-center px-7 py-3.5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl text-white font-semibold hover:bg-white/10 hover:border-white/20 active:scale-[0.98] transition-all duration-300"
+                className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md text-zinc-300 font-medium hover:text-white hover:bg-white/5 hover:border-white/20 transition-all duration-300 active:scale-95"
               >
                 Contacto
+              </a>
+
+              {/* NUEVO BOTÓN: DESCARGAR CV */}
+              <a
+                href="/cv-alejo-carmona.pdf" // Reemplaza por la ruta real de tu archivo
+                download="CV_Alejo_Carmona.pdf"
+                className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl border border-blue-500/20 bg-blue-500/[0.03] text-blue-400 font-medium hover:bg-blue-500/10 hover:border-blue-500/40 transition-all duration-300 active:scale-95"
+              >
+                <svg
+                  xmlns="http://w3.org"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-4 h-4 transform group-hover:translate-y-0.5 transition-transform duration-300"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+                  />
+                </svg>
+                <span>Descargar CV</span>
               </a>
             </div>
           </motion.div>
 
           {/* RIGHT SIDE: 3D Parallax Photo */}
           <div
-            className="relative flex justify-center lg:justify-end cursor-grab active:cursor-grabbing"
-            style={{ perspective: "1000px" }}
+            className="relative flex justify-center lg:justify-end cursor-grab active:cursor-grabbing z-10"
+            style={{ perspective: "1200px" }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
           >
-            {/* Glow Behind */}
+            {/* Glow Behind Photo */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-[450px] h-[450px] rounded-full bg-blue-500/10 blur-3xl" />
+              <div className="w-[400px] h-[400px] rounded-full bg-blue-500/10 blur-[80px]" />
             </div>
 
-            {/* Decorative Orbit Ring */}
-            <div className="absolute w-[420px] h-[420px] rounded-full border border-white/5 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+            {/* Decorative Grid Line */}
+            <div className="absolute w-[460px] h-[460px] rounded-full border border-white/[0.02] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none hidden md:block" />
 
             {/* Monolito de Foto 3D */}
             <motion.div
               style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              className="relative w-72 h-72 md:w-[420px] md:h-[420px] rounded-[48px] border border-white/10 bg-zinc-950 p-3 shadow-[0_30px_80px_rgba(0,0,0,0.8)] border-t-white/20"
+              animate={{ y: [0, -6, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="relative w-72 h-72 md:w-[400px] md:h-[400px] rounded-[40px] border border-white/10 bg-zinc-950 p-2.5 shadow-[0_30px_100px_rgba(0,0,0,0.8)] border-t-white/20"
             >
-              {/* Contenedor de la Imagen con translateZ para flotar */}
+              {/* Contenedor de la Imagen */}
               <div
-                className="relative w-full h-full rounded-[38px] overflow-hidden group"
+                className="relative w-full h-full rounded-[30px] overflow-hidden group"
                 style={{
-                  transform: "translateZ(30px)",
+                  transform: "translateZ(25px)",
                   transformStyle: "preserve-3d",
                 }}
               >
                 {/* Gradiente Protector */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent z-10 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent window-none z-10" />
 
                 {/* Cuadrícula interna tecnológica */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:15px_15px] z-10 pointer-events-none" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:20px_20px] z-10 pointer-events-none" />
 
                 <img
                   src={foto}
                   alt="Alejo Carmona"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                 />
               </div>
             </motion.div>

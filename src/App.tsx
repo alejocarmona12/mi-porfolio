@@ -5,7 +5,6 @@ import Stack from "./components/stack";
 import Footer from "./components/footer";
 import DeployNetlify from "./components/deployNetlify";
 import Contact from "./components/contact";
-import Timeline from "./components/timeline";
 
 export default function App() {
   return (
@@ -21,7 +20,6 @@ export default function App() {
         <div className="space-y-12 md:space-y-20">
           <About />
           <Stack />
-          <Timeline />
           <DeployNetlify />
 
           <Contact />
