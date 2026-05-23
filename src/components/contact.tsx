@@ -137,7 +137,7 @@ export default function ContactSection() {
             <p className="mt-3 text-sm text-gray-400 max-w-md mx-auto leading-relaxed">
               Disponible para oportunidades como{" "}
               <span className="text-blue-400 font-semibold">
-                Frontend Developer Jr / Trainee
+                Full Stack jr / Trainee
               </span>
               .
             </p>

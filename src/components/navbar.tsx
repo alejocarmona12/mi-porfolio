@@ -1,5 +1,5 @@
 import { useEffect, useState, type JSX } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Spring } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 
 import Container from "../layout/container";
@@ -60,7 +60,7 @@ export default function Navbar(): JSX.Element {
           width: "85%", // Ancho fijo para una alineación simétrica perfecta
           y: 12, // Flotante continuo desde el inicio
         }}
-        transition={{ type: "spring", stiffness: 80, damping: 15 }}
+        transition={{ type: "spring", stiffness: 80, damping: 15 } as Spring}
         className={`
           mx-auto rounded-2xl border transition-all duration-300
 
