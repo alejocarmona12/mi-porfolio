@@ -5,7 +5,7 @@ import { useState } from "react";
 
 const projects = [
   {
-    title: "Financial Dashboard",
+    title: "Sistema de Contabilidad Fullstack",
     description:
       "Dashboard financiero para registrar ingresos y gastos con métricas y gráficos dinámicos en tiempo real.",
     highlights: [
@@ -14,8 +14,9 @@ const projects = [
       "Persistencia de datos",
       "Diseño responsive",
     ],
-    tech: ["React", "TypeScript", "Recharts", "CSS"],
-    demo: "https://netlify.app",
+    tech: ["React • TypeScript • Node.js • MongoDB • JWT"],
+    demo: "https://alejo-financial-dashboard.netlify.app/",
+    image: "contabilidad.png",
   },
   {
     title: "Ecommerce Brigadeiros",
@@ -28,7 +29,8 @@ const projects = [
       "Mobile First",
     ],
     tech: ["React", "JavaScript", "Context API", "CSS"],
-    demo: "https://netlify.app",
+    demo: "https://unique-brigadeiros-57d756.netlify.app/",
+    image: "ecommerce.png",
   },
   {
     title: "Porta de Pelis",
@@ -36,14 +38,13 @@ const projects = [
       "Aplicación para explorar películas consumiendo APIs externas con renderizado dinámico.",
     highlights: ["Consumo de API", "Estados de carga", "Responsive UI"],
     tech: ["HTML", "JavaScript", "CSS"],
-    demo: "https://netlify.app",
+    demo: "https://portadepelis.netlify.app/",
+    image: "mundo-cine.png",
   },
 ];
 
 export default function Projects() {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Captura la posición de arrastre
   const dragX = useMotionValue(0);
 
   const totalItems = projects.length;
@@ -58,10 +59,9 @@ export default function Projects() {
     setCurrentIndex((prev) => (prev - 1 + totalItems) % totalItems);
   };
 
-  // Controla el final del arrastre para decidir si cambia de tarjeta
   const handleDragEnd = () => {
     const distanceMoved = dragX.get();
-    const swipeThreshold = 50; // Píxeles mínimos para activar el cambio
+    const swipeThreshold = 50;
 
     if (distanceMoved < -swipeThreshold) {
       handleNext();
@@ -69,7 +69,6 @@ export default function Projects() {
       handlePrev();
     }
 
-    // Resetea el valor de control de arrastre
     dragX.set(0);
   };
 
@@ -97,12 +96,10 @@ export default function Projects() {
 
         {/* 3D CAROUSEL ZONE */}
         <div className="relative flex flex-col items-center justify-center h-[550px] w-full">
-          {/* Contenedor de Perspectiva */}
           <div
             className="relative w-[320px] h-[420px] cursor-grab active:cursor-grabbing"
             style={{ perspective: "1200px", transformStyle: "preserve-3d" }}
           >
-            {/* Cilindro interactivo con funcionalidad de arrastre (Drag) */}
             <motion.div
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
@@ -125,16 +122,15 @@ export default function Projects() {
                     className={`absolute inset-0 rounded-3xl border border-white/10 bg-zinc-950/80 backdrop-blur-2xl p-6 transition-opacity duration-500 flex flex-col justify-between shadow-[0_0_50px_rgba(0,0,0,0.5)] ${
                       currentIndex === index
                         ? "opacity-100 border-blue-500/30 shadow-[0_0_40px_rgba(59,130,246,0.15)]"
-                        : "opacity-30 pointer-events-none" // Desactiva clicks en las tarjetas de fondo
+                        : "opacity-30 pointer-events-none"
                     }`}
                   >
-                    {/* Fake Preview Grid */}
-                    <div className="relative h-32 rounded-2xl border border-white/10 bg-gradient-to-br from-[#111827] to-[#1e293b] overflow-hidden flex items-center justify-center">
-                      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:20px_20px]" />
-                      <span className="text-white/40 text-sm font-medium tracking-wider uppercase z-10">
-                        {project.tech[0]}{" "}
-                        {project.tech[1] ? `+ ${project.tech[1]}` : ""}
-                      </span>
+                    {/* 2. MODIFICADO: Contenedor con la imagen de portada de fondo */}
+                    <div
+                      className="relative h-32 rounded-2xl border border-white/10 overflow-hidden bg-cover bg-center"
+                      style={{ backgroundImage: `url(${project.image})` }} // Inserta la foto dinámicamente
+                    >
+                      {/* Capa oscura superpuesta para que el texto de tecnología siga siendo legible */}
                     </div>
 
                     {/* Content */}

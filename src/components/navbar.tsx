@@ -1,11 +1,11 @@
 import { useEffect, useState, type JSX } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight } from "lucide-react"; // Importación limpia corregida
+import { Menu, X, ArrowUpRight } from "lucide-react";
 
 import Container from "../layout/container";
 import Logo from "../images/logo-alejocarmona.png";
 
-// Componente SVG nativo del logo de GitHub para evitar fallas de versión
+// Componente SVG nativo del logo de GitHub corregido
 const GithubIcon = ({ size = 15 }: { size?: number }) => (
   <svg
     xmlns="http://w3.org"
@@ -41,9 +41,9 @@ export default function Navbar(): JSX.Element {
     { name: "Proyectos", href: "#proyectos", external: false },
     {
       name: "GitHub",
-      href: "https://github.com/alejocarmona12",
+      href: "https://github.com",
       external: true,
-      icon: <GithubIcon size={15} />, // Asignado de forma correcta aquí
+      icon: <GithubIcon size={15} />,
     },
     { name: "Sobre mí", href: "#sobre-mi", external: false },
   ];
@@ -57,8 +57,8 @@ export default function Navbar(): JSX.Element {
     >
       <motion.div
         animate={{
-          width: scrolled ? "85%" : "100%",
-          y: scrolled ? 12 : 0,
+          width: "85%", // Ancho fijo para una alineación simétrica perfecta
+          y: 12, // Flotante continuo desde el inicio
         }}
         transition={{ type: "spring", stiffness: 80, damping: 15 }}
         className={`
@@ -67,7 +67,7 @@ export default function Navbar(): JSX.Element {
           ${
             scrolled
               ? "border-white/10 bg-zinc-950/70 backdrop-blur-2xl shadow-[0_12px_40px_rgba(0,0,0,0.5)] border-t-white/20"
-              : "border-transparent bg-transparent"
+              : "border-white/5 bg-zinc-950/20 backdrop-blur-md"
           }
         `}
       >
@@ -87,9 +87,9 @@ export default function Navbar(): JSX.Element {
               </span>
             </a>
 
-            {/* Desktop Menu con Efecto Pestaña Inteligente */}
+            {/* Desktop Menu - Contraste y fuente corregidos */}
             <div
-              className="hidden md:flex items-center gap-1 text-sm font-medium text-gray-400"
+              className="hidden md:flex items-center gap-1 text-sm font-semibold text-zinc-300"
               onMouseLeave={() => setHoveredTab(null)}
             >
               {navLinks.map((link) => (
@@ -125,7 +125,7 @@ export default function Navbar(): JSX.Element {
                 </a>
               ))}
 
-              {/* Botón de Acción Principal Estilo Monolítico */}
+              {/* Botón de Acción Principal */}
               <a
                 href="#contacto"
                 className="ml-3 px-5 py-2 rounded-xl bg-blue-600 text-white text-xs font-semibold hover:bg-blue-700 hover:scale-[1.03] active:scale-[0.97] transition-all shadow-lg shadow-blue-600/10 flex items-center gap-1 border border-blue-500/40"
@@ -145,7 +145,7 @@ export default function Navbar(): JSX.Element {
             </button>
           </nav>
 
-          {/* Mobile Menu con Animación Fluida */}
+          {/* Mobile Menu */}
           <AnimatePresence>
             {isOpen && (
               <motion.div

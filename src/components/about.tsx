@@ -77,22 +77,21 @@ export default function About() {
               <p>
                 Soy{" "}
                 <strong className="text-white font-medium">
-                  desarrollador Frontend
+                  desarrollador FULL STACK
                 </strong>{" "}
-                en formación, con experiencia práctica construyendo aplicaciones
-                web interactivas. Me apasiona transformar ideas complejas en
+                con experiencia práctica construyendo aplicaciones web
+                interactivas. Me apasiona transformar ideas complejas en
                 interfaces refinadas, priorizando siempre la experiencia del
                 usuario.
               </p>
               <p>
-                Actualmente estoy expandiendo mis horizontes técnicos hacia la
-                arquitectura del{" "}
+                Actualmente estoy profundizando mis conocimientos en la
+                arquitectura{" "}
                 <strong className="text-white font-medium">Backend</strong>{" "}
                 utilizando <strong className="text-purple-400">Node.js</strong>,{" "}
                 <strong className="text-purple-400">Express</strong> y{" "}
-                <strong className="text-purple-400">MongoDB</strong>. Mi meta
-                definitiva es consolidarme como desarrollador Full Stack de
-                punta a punta.
+                <strong className="text-purple-400">MongoDB</strong>. Para crear
+                soluciones cada vez más eficientes, escalables y robustas.
               </p>
             </div>
 

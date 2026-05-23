@@ -87,7 +87,7 @@ export default function ContactSection() {
       icon: <FaLinkedin className="w-5 h-5 text-blue-400" />,
       label: "LinkedIn",
       value: "Ver perfil",
-      href: "https://linkedin.com", // 👈 REEMPLAZÁ CON TU LINK REAL
+      href: "https://www.linkedin.com/in/alejo-carmona-b66952228/",
       external: true,
       ariaLabel: "Abrir LinkedIn de Alejo Carmona",
       glowColor:
@@ -97,7 +97,7 @@ export default function ContactSection() {
       icon: <FaWhatsapp className="w-5 h-5 text-emerald-400" />,
       label: "WhatsApp",
       value: "Mensaje directo",
-      href: "https://wa.me...",
+      href: "https://wa.me/543815298430",
       external: true,
       ariaLabel: "Enviar WhatsApp a Alejo Carmona",
       glowColor:

@@ -8,7 +8,7 @@ export default function Hero() {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  // Configuramos un efecto "spring" físico para suavizar el movimiento de la foto
+  // Configuramos un efecto "spring" para suavizar el movimiento de la foto
   const springConfig = { damping: 25, stiffness: 150 };
   const rotateX = useSpring(
     useTransform(y, [-300, 300], [15, -15]),
@@ -67,7 +67,8 @@ export default function Hero() {
       </div>
 
       <Container>
-        <div className="grid lg:grid-cols-[1.15fr_.85fr] gap-12 lg:gap-16 items-center pt-32 pb-20">
+        {/* SE CAMBIÓ A lg:grid-cols-2 PARA DARLE MÁS ESPACIO A LA FOTO */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-32 pb-20">
           {/* LEFT SIDE: Texts & Actions */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -82,7 +83,7 @@ export default function Hero() {
                 sequence={[
                   "Full Stack Developer",
                   2000,
-                  "React & TypeScript Developer",
+                  "React JavaScript TypeScript Developer",
                   2000,
                   "Disponible para proyectos",
                   2000,
@@ -97,13 +98,13 @@ export default function Hero() {
             {/* TITLE */}
             <h1 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white">
               Creo experiencias web, enfocadas en rendimiento y{" "}
-              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">
                 escalabilidad.
               </span>
             </h1>
 
             {/* DESCRIPTION */}
-            <p className="mt-6 max-w-xl text-base md:text-lg leading-relaxed text-zinc-400 font-normal">
+            <p className="mt-6 max-w-xl text-base md:text-lg leading-relaxed text-zinc-300 font-normal">
               Soy{" "}
               <strong className="text-zinc-100 font-semibold bg-white/5 px-1.5 py-0.5 rounded border border-white/5">
                 Alejo Carmona
@@ -113,7 +114,7 @@ export default function Hero() {
             </p>
 
             {/* BUTTONS */}
-            <div className="mt-10 flex flex-wrap gap-4 items-center">
+            <div className="mt-10 flex flex-wrap gap-6 items-center">
               <a
                 href="#proyectos"
                 className="group relative inline-flex items-center justify-center px-6 py-3.5 rounded-xl bg-white text-black font-semibold tracking-wide overflow-hidden shadow-lg hover:shadow-blue-500/10 transition-all duration-300 active:scale-95"
@@ -134,9 +135,8 @@ export default function Hero() {
                 Contacto
               </a>
 
-              {/* NUEVO BOTÓN: DESCARGAR CV */}
               <a
-                href="/cv-alejo-carmona.pdf" // Reemplaza por la ruta real de tu archivo
+                href="/cv-alejo-carmona.pdf"
                 download="CV_Alejo_Carmona.pdf"
                 className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl border border-blue-500/20 bg-blue-500/[0.03] text-blue-400 font-medium hover:bg-blue-500/10 hover:border-blue-500/40 transition-all duration-300 active:scale-95"
               >
@@ -161,46 +161,32 @@ export default function Hero() {
 
           {/* RIGHT SIDE: 3D Parallax Photo */}
           <div
-            className="relative flex justify-center lg:justify-end cursor-grab active:cursor-grabbing z-10"
+            className="relative flex justify-center lg:justify-end cursor-grab active:cursor-grabbing z-10 w-full"
             style={{ perspective: "1200px" }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
           >
-            {/* Glow Behind Photo */}
+            {/* Glow Behind Photo - Ajustado al nuevo tamaño */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-[400px] h-[400px] rounded-full bg-blue-500/10 blur-[80px]" />
+              <div className="w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[90px]" />
             </div>
 
-            {/* Decorative Grid Line */}
-            <div className="absolute w-[460px] h-[460px] rounded-full border border-white/[0.02] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none hidden md:block" />
+            {/* Decorative Grid Line - Se agrandó de 460px a 540px */}
+            <div className="absolute w-[540px] h-[540px] rounded-full border border-white/[0.02] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none hidden md:block" />
 
-            {/* Monolito de Foto 3D */}
+            {/* Monolito de Foto 3D - SE AGRANDARON LAS MEDIDAS AQUÍ */}
             <motion.div
               style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative w-72 h-72 md:w-[400px] md:h-[400px] rounded-[40px] border border-white/10 bg-zinc-950 p-2.5 shadow-[0_30px_100px_rgba(0,0,0,0.8)] border-t-white/20"
+              className="relative w-72 h-72 sm:w-96 sm:h-96 lg:w-[480px] lg:h-[480px] overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 shadow-2xl"
             >
-              {/* Contenedor de la Imagen */}
-              <div
-                className="relative w-full h-full rounded-[30px] overflow-hidden group"
-                style={{
-                  transform: "translateZ(25px)",
-                  transformStyle: "preserve-3d",
-                }}
-              >
-                {/* Gradiente Protector */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent window-none z-10" />
-
-                {/* Cuadrícula interna tecnológica */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:20px_20px] z-10 pointer-events-none" />
-
-                <img
-                  src={foto}
-                  alt="Alejo Carmona"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
-                />
-              </div>
+              <img
+                src={foto}
+                alt="Alejo Carmona"
+                className="w-full h-full object-cover select-none"
+                draggable="false"
+              />
             </motion.div>
           </div>
         </div>
