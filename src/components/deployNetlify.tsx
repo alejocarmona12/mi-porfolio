@@ -7,37 +7,52 @@ const projects = [
   {
     title: "Sistema de Contabilidad Fullstack",
     description:
-      "Dashboard financiero para registrar ingresos y gastos con métricas y gráficos dinámicos en tiempo real.",
+      "Aplicación financiera para gestión de ingresos y gastos con visualización de datos en tiempo real y arquitectura escalable.",
+    problem:
+      "Necesidad de centralizar el control financiero personal con métricas claras y actualizadas.",
+    solution:
+      "Desarrollé un dashboard con React y Node.js, integrando gráficos dinámicos y persistencia de datos.",
     highlights: [
-      "Filtros por tipo y período",
-      "Gráficos dinámicos con Recharts",
-      "Persistencia de datos",
-      "Diseño responsive",
+      "Arquitectura fullstack con separación clara de capas",
+      "Visualización de datos con Recharts",
+      "Autenticación con JWT",
+      "Diseño responsive orientado a uso real",
     ],
-    tech: ["React • TypeScript • Node.js • MongoDB • JWT"],
+    tech: ["React", "TypeScript", "Node.js", "MongoDB", "JWT", "Recharts"],
     demo: "https://alejo-financial-dashboard.netlify.app/",
     image: "contabilidad.png",
   },
   {
     title: "Ecommerce Brigadeiros",
     description:
-      "E-commerce moderno con carrito de compras y arquitectura escalable lista para backend.",
+      "E-commerce funcional con carrito de compras y estructura preparada para backend escalable.",
+    problem:
+      "Necesidad de simular una tienda online con flujo completo de compra.",
+    solution:
+      "Implementé gestión de estado global con Context API y arquitectura de componentes reutilizables.",
     highlights: [
-      "Context API",
-      "Gestión de carrito",
-      "Componentes reutilizables",
-      "Mobile First",
+      "Gestión de estado global eficiente",
+      "Arquitectura de componentes escalables",
+      "Flujo de carrito completo",
+      "Mobile-first design",
     ],
-    tech: ["React", "JavaScript", "Context API", "CSS"],
+    tech: ["React", "Context API", "JavaScript", "CSS"],
     demo: "https://unique-brigadeiros-57d756.netlify.app/",
     image: "ecommerce.png",
   },
   {
     title: "Porta de Pelis",
     description:
-      "Aplicación para explorar películas consumiendo APIs externas con renderizado dinámico.",
-    highlights: ["Consumo de API", "Estados de carga", "Responsive UI"],
-    tech: ["HTML", "JavaScript", "CSS"],
+      "App de exploración de películas consumiendo APIs externas con manejo de estados asíncronos.",
+    problem: "Explorar consumo de APIs externas y manejo de estados de carga.",
+    solution:
+      "Construí una interfaz dinámica con manejo de loading states y renderizado condicional.",
+    highlights: [
+      "Consumo de API REST",
+      "Manejo de estados de carga",
+      "UI responsive optimizada",
+    ],
+    tech: ["JavaScript", "HTML", "CSS", "API REST"],
     demo: "https://portadepelis.netlify.app/",
     image: "mundo-cine.png",
   },

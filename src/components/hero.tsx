@@ -8,7 +8,7 @@ export default function Hero() {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  // Configuramos un efecto "spring" para suavizar el movimiento de la foto
+  //  spring para suavizar el movimiento de la foto
   const springConfig = { damping: 25, stiffness: 150 };
   const rotateX = useSpring(
     useTransform(y, [-300, 300], [15, -15]),
@@ -95,9 +95,9 @@ export default function Hero() {
 
             {/* TITLE */}
             <h1 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] text-white">
-              Creo experiencias web, enfocadas en rendimiento y{" "}
+              Construyo interfaces web rápidas, escalables y mantenibles con{" "}
               <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-300 bg-clip-text text-transparent">
-                escalabilidad.
+                React y TypeScript.
               </span>
             </h1>
 
@@ -107,8 +107,9 @@ export default function Hero() {
               <strong className="text-zinc-100 font-semibold bg-white/5 px-1.5 py-0.5 rounded border border-white/5">
                 Alejo Carmona
               </strong>
-              , Full Stack Developer enfocado en crear soluciones digitales
-              completas, robustas y centradas en la experiencia de usuario.
+              desarrollador full-stack enfocado en construir productos modernos,
+              optimizados y fáciles de mantener. Me especializo en React,
+              TypeScript y Node.js. arquitectura de interfaces escalables.
             </p>
 
             {/* BUTTONS */}
@@ -121,16 +122,13 @@ export default function Hero() {
                 <span className="group-hover:text-white transition-colors duration-300">
                   Ver proyectos
                 </span>
-                <span className="ml-1.5 transform group-hover:translate-x-1 transition-transform duration-300 group-hover:text-white">
-                  →
-                </span>
               </a>
 
               <a
                 href="#contacto"
                 className="inline-flex items-center justify-center px-6 py-3.5 rounded-xl border border-white/10 bg-white/[0.02] backdrop-blur-md text-zinc-300 font-medium hover:text-white hover:bg-white/5 hover:border-white/20 transition-all duration-300 active:scale-95"
               >
-                Contacto
+                Contactar
               </a>
 
               <a
