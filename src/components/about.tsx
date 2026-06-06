@@ -46,7 +46,7 @@ export default function About() {
   return (
     <section
       id="sobre-mi"
-      className="py-32 bg-black overflow-hidden select-none relative"
+      className="py-20 md:py-24 bg-black overflow-hidden select-none relative"
     >
       {/* Background Glow sutil para ambientación espacial */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
@@ -54,7 +54,7 @@ export default function About() {
       </div>
 
       <Container>
-        <div className="grid lg:grid-cols-[1.1fr_.9fr] gap-12 lg:gap-20 items-center">
+        <div className="grid lg:grid-cols-[1.1fr_.9fr] gap-10 lg:gap-14 items-center">
           {/* COLUMNA IZQUIERDA: Texto Narrativo Profesional */}
           <motion.div
             initial={{ opacity: 0, x: -25 }}
@@ -96,7 +96,7 @@ export default function About() {
             </div>
 
             {/* Listado de focos clave */}
-            <ul className="mt-8 space-y-3.5">
+            <ul className="mt-6 space-y-3">
               {focusPoints.map((point, index) => (
                 <li
                   key={index}
@@ -111,89 +111,99 @@ export default function About() {
             </ul>
           </motion.div>
 
-          {/* COLUMNA DERECHA: Tarjeta Holográfica 3D (GitHub Stats Reales) */}
+          {/* COLUMNA DERECHA */}
           <div
             className="relative flex justify-center lg:justify-end cursor-grab active:cursor-grabbing"
             style={{ perspective: "1000px" }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
           >
-            {/* Tarjeta Monolítica */}
             <motion.div
               style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 60, damping: 20 }}
-              className="relative w-full max-w-[380px] rounded-3xl border border-white/10 bg-zinc-950 p-6 shadow-[0_30px_80px_rgba(0,0,0,0.8)] border-t-white/20 overflow-hidden"
+              className="relative w-full max-w-[420px] overflow-hidden rounded-3xl border border-white/10 bg-zinc-950/80 p-8 backdrop-blur-xl shadow-[0_30px_80px_rgba(0,0,0,0.8)]"
             >
-              {/* Reflejo Holográfico Interno */}
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-blue-500/5 pointer-events-none" />
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:15px_15px] pointer-events-none" />
+              {/* Glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-purple-500/10 pointer-events-none" />
 
-              {/* Cabecera de la Tarjeta estilo Editor */}
               <div
-                style={{ transform: "translateZ(35px)" }}
-                className="flex items-center justify-between border-b border-white/5 pb-4 transition-transform duration-200"
+                style={{ transform: "translateZ(30px)" }}
+                className="relative"
               >
-                <div className="flex items-center gap-2.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-red-500/40" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/40" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-green-500/40" />
-                  <span className="text-xs font-mono text-gray-500 ml-1">
-                    stats.json
-                  </span>
-                </div>
-                <Award className="w-4 h-4 text-purple-400 animate-pulse" />
-              </div>
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-500/10 border border-blue-500/20">
+                    <Award className="w-8 h-8 text-blue-400" />
+                  </div>
 
-              {/* Estadísticas Reales en Bloques Flotantes */}
-              <div
-                style={{ transform: "translateZ(25px)" }}
-                className="mt-6 space-y-3 transition-transform duration-200"
-              >
-                {/* Repositorios */}
-                <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] transition-colors flex justify-between items-center group">
-                  <span className="text-xs text-gray-400 font-mono">
-                    "repositorios_publicos"
-                  </span>
-                  <span className="text-sm font-bold text-white font-mono bg-white/5 px-2 py-0.5 rounded-md border border-white/5 group-hover:text-purple-400 transition-colors">
-                    7
-                  </span>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">
+                      Alejo Carmona
+                    </h3>
+                    <p className="text-sm text-zinc-400">
+                      Full Stack Developer Jr.
+                    </p>
+                  </div>
                 </div>
 
-                {/* Logros */}
-                <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] transition-colors flex flex-col gap-2">
-                  <span className="text-xs text-gray-400 font-mono">
-                    "logros_github"
-                  </span>
-                  <div className="flex flex-wrap gap-1.5 mt-0.5">
-                    <span className="text-[10px] px-2 py-0.5 rounded-md border border-purple-500/20 bg-purple-500/5 text-purple-300 font-medium">
-                      ⚓ Pull Shark
+                <div className="mt-8 space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-zinc-400">📍 Ubicación</span>
+                    <span className="text-white">Tucumán, Argentina</span>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-zinc-400">💼 Perfil</span>
+                    <span className="text-blue-400">Junior / Trainee</span>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-zinc-400">🌎 Modalidad</span>
+                    <span className="text-white">Remoto / Híbrido</span>
+                  </div>
+                </div>
+
+                <div className="mt-8">
+                  <h4 className="text-sm font-semibold text-white mb-4">
+                    Tecnologías principales
+                  </h4>
+
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs">
+                      React
                     </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded-md border-blue-500/20 bg-blue-500/5 text-blue-300 font-medium">
-                      🚀 YOLO Achievement
+
+                    <span className="px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-300 text-xs">
+                      TypeScript
+                    </span>
+
+                    <span className="px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-300 text-xs">
+                      JavaScript
+                    </span>
+
+                    <span className="px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-300 text-xs">
+                      Node.js
+                    </span>
+
+                    <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs">
+                      MongoDB
+                    </span>
+
+                    <span className="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-xs">
+                      Tailwind CSS
                     </span>
                   </div>
                 </div>
 
-                {/* Rol de Contribución */}
-                <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01] hover:bg-white/[0.03] transition-colors flex justify-between items-center group">
-                  <span className="text-xs text-gray-400 font-mono">
-                    "contribuciones_2026"
-                  </span>
-                  <span className="text-xs font-semibold text-emerald-400 font-mono">
-                    ACTIVE_DEV
-                  </span>
+                <div className="mt-8 rounded-2xl border border-white/5 bg-white/[0.02] p-4">
+                  <p className="text-sm leading-relaxed text-zinc-300">
+                    Buscando mi primera oportunidad profesional para aportar
+                    valor, seguir aprendiendo y participar en el desarrollo de
+                    productos modernos utilizando tecnologías web actuales.
+                  </p>
                 </div>
-              </div>
-
-              {/* Pie de Tarjeta decorativo */}
-              <div
-                style={{ transform: "translateZ(15px)" }}
-                className="mt-6 text-right text-[10px] font-mono text-gray-600 transition-transform duration-200"
-              >
-                // Actualizado via GitHub API
               </div>
             </motion.div>
           </div>

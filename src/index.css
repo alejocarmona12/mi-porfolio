@@ -2,46 +2,87 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 🌟 OPTIMIZACIONES GLOBALES PARA EL ENTORNO 3D */
+/* CONFIGURACIÓN GLOBAL  */
+
 html {
   scroll-behavior: smooth;
-  background-color: #000000;
+  background-color: #000;
 }
 
-/* Barra de desplazamiento premium que se funde con el fondo negro */
+body {
+  background-color: #000;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* SCROLLBAR PERSONALIZADA  */
+
 ::-webkit-scrollbar {
   width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: #000;
 }
 
 ::-webkit-scrollbar-thumb {
   background: #1c1c1e;
-  border-radius: 99px;
-  border: 2px solid #000000;
+  border-radius: 999px;
+  border: 2px solid #000;
+  transition: background 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #2c2c2e;
 }
 
-/* 🚀 MARQUEE OPTIMIZADO POR HARDWARE */
+/* Firefox */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #1c1c1e #000;
+}
+/* OPTIMIZACIONES DE RENDER */
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+.gpu {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* markes  */
+
 @keyframes marquee {
-  0% {
-    transform: translateX(0);
+  from {
+    transform: translate3d(0, 0, 0);
   }
-  100% {
-    transform: translateX(-50%);
+
+  to {
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 .animate-marquee {
-  will-change: transform; /* Fuerza el renderizado por GPU para máxima fluidez */
+  transform: translateZ(0);
+  will-change: transform;
   animation: marquee 25s linear infinite;
 }
 
 .animate-marquee:hover {
   animation-play-state: paused;
+}
+
+/* seccion de texto  */
+
+::selection {
+  background: rgba(59, 130, 246, 0.35);
+  color: #ffffff;
 }

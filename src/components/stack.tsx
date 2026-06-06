@@ -72,7 +72,7 @@ export default function Stack() {
   };
 
   return (
-    <section className="relative py-40 bg-black select-none overflow-hidden">
+    <section className="relative py-20 md:py-24 bg-black select-none overflow-hidden">
       <Container>
         {/* Title */}
         <div className="text-center mb-16">

@@ -36,7 +36,11 @@ const iconMotion: Variants = {
   hover: {
     rotate: 12,
     scale: 1.15,
-    transition: { type: "spring", stiffness: 300, damping: 10 },
+    transition: {
+      type: "spring" as const,
+      stiffness: 300,
+      damping: 10,
+    },
   },
 };
 
@@ -69,7 +73,7 @@ export default function ContactSection() {
       icon: <MdEmail className="w-5 h-5 text-red-400" />,
       label: "Email",
       value: "alejocarmona224@gmail.com",
-      href: "https://google.com",
+      href: "mailto:alejocarmona224@gmail.com",
       external: true,
       ariaLabel: "Enviar email a Alejo Carmona",
       glowColor: "group-hover:border-red-500/30 group-hover:bg-red-500/[0.02]",

@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
-import foto from "../images/foto-alejocarmona.jpg";
+import foto from "../images/fotoalejo.png";
 import Container from "../layout/container";
 
 export default function Hero() {
@@ -67,9 +67,7 @@ export default function Hero() {
       </div>
 
       <Container>
-        {/* SE CAMBIÓ A lg:grid-cols-2 PARA DARLE MÁS ESPACIO A LA FOTO */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center pt-32 pb-20">
-          {/* LEFT SIDE: Texts & Actions */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -141,7 +139,7 @@ export default function Hero() {
                 className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl border border-blue-500/20 bg-blue-500/[0.03] text-blue-400 font-medium hover:bg-blue-500/10 hover:border-blue-500/40 transition-all duration-300 active:scale-95"
               >
                 <svg
-                  xmlns="http://w3.org"
+                  xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={2}
@@ -166,25 +164,43 @@ export default function Hero() {
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
           >
-            {/* Glow Behind Photo - Ajustado al nuevo tamaño */}
+            {/* Glow Behind Photo */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="w-[500px] h-[500px] rounded-full bg-blue-500/10 blur-[90px]" />
             </div>
 
-            {/* Decorative Grid Line - Se agrandó de 460px a 540px */}
             <div className="absolute w-[540px] h-[540px] rounded-full border border-white/[0.02] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none hidden md:block" />
 
-            {/* Monolito de Foto 3D - SE AGRANDARON LAS MEDIDAS AQUÍ */}
+            {/* Monolito de Foto 3D */}
             <motion.div
               style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
               animate={{ y: [0, -6, 0] }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="relative w-72 h-72 sm:w-96 sm:h-96 lg:w-[480px] lg:h-[480px] overflow-hidden rounded-2xl border border-white/10 bg-zinc-900 shadow-2xl"
+              className="
+                        relative
+                        w-72 h-72
+                        sm:w-96 sm:h-96
+                        lg:w-[480px] lg:h-[480px]
+                        overflow-hidden
+                        rounded-3xl
+                        border border-blue-500/20
+                        bg-zinc-900
+                        shadow-[0_0_60px_rgba(59,130,246,0.25)]
+                      "
             >
+              {/* Glow interno */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 via-transparent to-cyan-400/10 pointer-events-none z-10" />
+
+              {/* Borde luminoso */}
+              <div className="absolute inset-0 rounded-3xl border border-white/10 pointer-events-none z-10" />
+
+              {/* Reflejo superior */}
+              <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-white/10 to-transparent pointer-events-none z-10" />
+
               <img
                 src={foto}
                 alt="Alejo Carmona"
-                className="w-full h-full object-cover select-none"
+                className="w-full h-full object-cover select-none transition-transform duration-700 hover:scale-105"
                 draggable="false"
               />
             </motion.div>

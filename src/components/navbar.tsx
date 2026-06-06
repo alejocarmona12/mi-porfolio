@@ -5,7 +5,7 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 import Container from "../layout/container";
 import Logo from "../images/logo-alejocarmona.png";
 
-// Componente SVG nativo del logo de GitHub corregido
+// Componente SVG nativo del logo de GitHub
 const GithubIcon = ({ size = 15 }: { size?: number }) => (
   <svg
     xmlns="http://w3.org"
@@ -87,7 +87,7 @@ export default function Navbar(): JSX.Element {
               </span>
             </a>
 
-            {/* Desktop Menu - Contraste y fuente corregidos */}
+            {/* Desktop Menu - Contraste y fuente  */}
             <div
               className="hidden md:flex items-center gap-1 text-sm font-semibold text-zinc-300"
               onMouseLeave={() => setHoveredTab(null)}
