@@ -156,12 +156,12 @@ export default function About() {
 
                   <div className="flex justify-between items-center">
                     <span className="text-zinc-400">💼 Perfil</span>
-                    <span className="text-blue-400">Junior / Trainee</span>
+                    <span className="text-blue-400">Full Stack Developer Jr.</span>
                   </div>
 
                   <div className="flex justify-between items-center">
                     <span className="text-zinc-400">🌎 Modalidad</span>
-                    <span className="text-white">Remoto / Híbrido</span>
+                    <span className="text-white">Remoto / Presencial</span>
                   </div>
                 </div>
 

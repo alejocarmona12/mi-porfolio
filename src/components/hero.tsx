@@ -132,8 +132,8 @@ export default function Hero() {
               </a>
 
               <a
-                href="/cv-alejo-carmona.pdf"
-                download="CV_Alejo_Carmona.pdf"
+                href="/CV.AlejoCarmona.pdf"
+                download="CV.AlejoCarmona.pdf"
                 className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl border border-blue-500/20 bg-blue-500/[0.03] text-blue-400 font-medium hover:bg-blue-500/10 hover:border-blue-500/40 transition-all duration-300 active:scale-95"
               >
                 <svg

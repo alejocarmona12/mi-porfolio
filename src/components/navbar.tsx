@@ -41,7 +41,7 @@ export default function Navbar(): JSX.Element {
     { name: "Proyectos", href: "#proyectos", external: false },
     {
       name: "GitHub",
-      href: "https://github.com",
+      href: "https://github.com/alejocarmona12",
       external: true,
       icon: <GithubIcon size={15} />,
     },
